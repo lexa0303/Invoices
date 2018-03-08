@@ -1,27 +1,77 @@
-# Codemotion
+# Dependencies
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.2.
+- sqlite3
+- node
+- npm
 
-## Development server
+# Getting Started
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+###### Install npm dependencies
+`npm install`
 
-## Code scaffolding
+###### Build application
+`ng build`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+###### Run the node server
+`node app.js`
 
-## Build
+###### Viewing the application in your browser
+`http://localhost:8000`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+# Schema
 
-## Running unit tests
+## Customers
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- id (integer)
+- name (string)
+- address (string)
+- phone (string)
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Products
 
-## Further help
+- id (integer)
+- name (string)
+- price (decimal)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Invoices
+
+- id (integer)
+- customer_id (integer)
+- discount (decimal)
+- total (decimal)
+
+## InvoiceItems
+
+- id (integer)
+- invoice_id (integer)
+- product_id (integer)
+- quantity (decimal)
+
+
+# Resources
+
+## Customers
+```
+GET|POST          /api/customers
+GET|PUT|DELETE    /api/customers/{id}
+```
+
+## Products
+```
+GET|POST          /api/products
+GET|PUT|DELETE    /api/products/{id}
+```
+## Invoices
+```
+GET|POST          /api/invoices
+GET|PUT|DELETE    /api/invoices/{id}
+```
+
+## InvoiceItems
+```
+GET|POST          /api/invoices/{id}/items
+GET|PUT|DELETE    /api/invoices/{invoice_id}/items/{id}
+```
+
+

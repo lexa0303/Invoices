@@ -1,0 +1,11 @@
+<div class="invoice-list-heading">
+  <h2>Invoice list
+    <a class="btn pull-right" routerLink="invoice" routerLinkActive="active">Add invoice</a>
+  </h2>
+</div>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let item of invoiceList" >
+    <a routerLink="/invoice/{{item.id}}">{{item.id}}. {{item.customer && item.customer.name}} - {{item.total | discount}}</a>
+    <a (click)="deleteInvoice(item)" class="badge badge-primary badge-pill">X</a>
+  </li>
+</ul>
