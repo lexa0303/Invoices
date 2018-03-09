@@ -8,7 +8,7 @@
                 (change)="updateInvoice()"
                 id="customer"
                 name="customer"
-                [(ngModel)]="invoice.customer_id">
+                [(ngModel)]="invoice && invoice.customer_id">
           <option *ngFor="let customer of customers"
                   value="{{customer.id}}">{{customer.name}}
           </option>
@@ -23,7 +23,7 @@
                  class="form-control"
                  min="0"
                  max="100"
-                 [(ngModel)]="invoice.discount"/>
+                 [(ngModel)]="invoice && invoice.discount"/>
           <span class="input-group-addon">%</span>
         </div>
       </div>
@@ -45,8 +45,9 @@
         </div>
       </div>
     </div>
-    <ul class="list-group">
-      <li class="list-group-item row" *ngFor="let item of invoice.products">
+    <ul class="list-group" *ngIf="invoice">
+      <li class="list-group-item clearfix"
+          *ngFor="let item of invoice.products">
         <div class="col-md-10">
           <div class="input-group">
             <span class="input-group-addon"> {{item.product && item.product.name}}</span>
@@ -64,7 +65,7 @@
   <div class="col-md-2">
     <div class="form-group">
       <label>Total price</label>
-      <div class="form-control">{{invoice.total | discount}}</div>
+      <div class="form-control">{{invoice && invoice.total | discount}}</div>
     </div>
   </div>
 </form>

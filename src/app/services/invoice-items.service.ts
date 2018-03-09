@@ -8,7 +8,7 @@ export class InvoiceItemsService {
 
   constructor(private http: HttpService) { }
 
-  private makeUrl (invoice_id, item_id = false) {
+  private makeUrl (invoice_id, item_id = false): string {
     let result = this.url.replace('{id}', invoice_id);
     if (item_id) {
       result += '/' + item_id;
@@ -16,21 +16,21 @@ export class InvoiceItemsService {
     return result;
   }
 
-  public get(id): any {
+  public get(id): Promise<any> {
     return this.http.request({
       method: 'get',
       url: this.makeUrl(id)
     });
   }
 
-  public getById(invoiceId, itemId) {
+  public getById(invoiceId, itemId): Promise<any> {
     return this.http.request({
       method: 'get',
       url: this.makeUrl(invoiceId, itemId)
     });
   }
 
-  public add(id, data) {
+  public add(id, data): Promise<any> {
     return this.http.request({
       method: 'post',
       url: this.makeUrl(id),
@@ -38,7 +38,7 @@ export class InvoiceItemsService {
     });
   }
 
-  public update(id, data) {
+  public update(id, data): Promise<any> {
     return this.http.request({
       method: 'put',
       url: this.makeUrl(id, data.id),
@@ -46,7 +46,7 @@ export class InvoiceItemsService {
     });
   }
 
-  public delete(invoice_id, item_id) {
+  public delete(invoice_id, item_id): Promise<any> {
     return this.http.request({
       method: 'delete',
       url: this.makeUrl(invoice_id, item_id)

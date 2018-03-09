@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {HttpParams} from '../interfaces/http-params';
 
 @Injectable()
 export class HttpService {
@@ -7,7 +8,7 @@ export class HttpService {
   constructor(private http: HttpClient) {
   }
 
-  public request(config): any {
+  public request(config: HttpParams): Promise<any> {
     if (!config.method) {
       return Promise.reject('no method');
     }

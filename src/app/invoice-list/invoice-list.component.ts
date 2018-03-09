@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpService} from '../services/http.service';
+import {Invoice} from '../interfaces/invoice';
+import {Customer} from '../interfaces/customer';
 
 @Component({
   selector: 'app-invoice-list',
@@ -8,9 +10,8 @@ import {HttpService} from '../services/http.service';
 })
 export class InvoiceListComponent implements OnInit {
 
-  public invoiceList: any;
-  public customers;
-  public products;
+  public invoiceList: Array<Invoice>;
+  public customers: Array<Customer>;
 
   constructor(private http: HttpService) {
   }
@@ -35,11 +36,11 @@ export class InvoiceListComponent implements OnInit {
     });
   }
 
-  private getCustomer(id) {
-    return this.customers.filter(customer => parseInt(customer.id) === parseInt(id)).shift();
+  private getCustomer(id): Customer {
+    return this.customers.filter(customer => customer.id === parseInt(id))[0];
   }
 
-  public async deleteInvoice(item) {
+  public async deleteInvoice(item: Invoice) {
     await this.http.request({
       method: 'delete',
       url: '/api/invoices/' + item.id

@@ -2,6 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {HttpService} from '../services/http.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {InvoiceItemsService} from '../services/invoice-items.service';
+import {Invoice} from '../interfaces/invoice';
+import {Customer} from '../interfaces/customer';
+import {Product} from '../interfaces/product';
+import {InvoiceItem} from '../interfaces/invoice-item';
 
 @Component({
   selector: 'app-invoice-detail',
@@ -10,17 +14,11 @@ import {InvoiceItemsService} from '../services/invoice-items.service';
 })
 export class InvoiceDetailComponent implements OnInit {
 
-  public customers: any;
-  public products: any;
-  public invoice = {
-    id: null,
-    customer_id: null,
-    products: [],
-    discount: 0,
-    total: 0
-  };
+  public customers: Array<Customer>;
+  public products: Array<Product>;
+  public invoice: Invoice;
 
-  private selectedProduct: any;
+  public selectedProduct: number;
 
   constructor(private http: HttpService,
               private route: ActivatedRoute,
@@ -53,7 +51,6 @@ export class InvoiceDetailComponent implements OnInit {
         });
 
         this.refreshItems();
-        console.log(this.invoice);
       }
     });
   }
@@ -91,24 +88,24 @@ export class InvoiceDetailComponent implements OnInit {
     this.updateInvoice();
   }
 
-  public updateProduct(product) {
+  public updateProduct(product: InvoiceItem) {
     this.invoiceItems.update(this.invoice.id, product);
     this.updateInvoice();
   }
 
-  public async deleteProduct(product) {
+  public async deleteProduct(product: InvoiceItem) {
     const result = await this.invoiceItems.delete(this.invoice.id, product.id);
     if (result) {
       this.refreshItems();
     }
   }
 
-  private getProduct(id) {
-    return this.products.filter(product => parseInt(product.id) === parseInt(id))[0];
+  private getProduct(id): Product {
+    return this.products.filter(product => product.id === parseInt(id))[0];
   }
 
-  private getAddedProduct(id) {
-    return this.invoice.products.filter(product => parseInt(product.product_id) === parseInt(id))[0];
+  private getAddedProduct(id): InvoiceItem {
+    return this.invoice.products.filter(product => product.product_id === parseInt(id))[0];
   }
 
   public updateInvoice() {
