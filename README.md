@@ -9,11 +9,14 @@
 ###### Install npm dependencies
 `npm install`
 
-###### Build application
-`ng build`
+###### Start app automatically
+`npm start`
 
-###### Run the node server
-`node app.js`
+###### Or manually
+- Build application
+- - `ng build`
+- Run the node server
+- - `node app.js`
 
 ###### Viewing the application in your browser
 `http://localhost:8000`
